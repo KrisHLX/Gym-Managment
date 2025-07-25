@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Workouts</title>
+  <link rel="stylesheet" href="workout.css" />
+</head>
+<body>
+
+  <div class="container">
+    <nav class="gym-navbar">
+      <div class="logo-wrapper">
+        <strong>XYZ Fitness</strong>
+      </div>
+      <ul class="nav-center">
+        <li><a href="homepage.html">Home</a></li>
+        <li><a href="membership.html">Membership</a></li>
+        <li><a href="workouts.html" class="active">Workouts</a></li>
+      </ul>
+    </nav>
+
+    <section class="workout-section">
+      <div class="workout-card" data-access="1-month">
+        <div class="workout-content">
+          <h3>Beginner Full Body</h3>
+          <p>Perfect for getting started. Light strength & cardio.</p>
+          <span class="badge">1-Month Plan</span>
+        </div>
+        <div class="lock-overlay">🔒 Buy 1-Month Plan to access this workout</div>
+      </div>
+
+      <div class="workout-card" data-access="3-month">
+        <div class="workout-content">
+          <h3>Strength Training</h3>
+          <p>Build strength and endurance over 12 weeks.</p>
+          <span class="badge">3-Month Plan</span>
+        </div>
+        <div class="lock-overlay">🔒 Buy 3-Month Plan to access this workout</div>
+      </div>
+
+      <div class="workout-card" data-access="6-month">
+        <div class="workout-content">
+          <h3>Pro Athlete Program</h3>
+          <p>Intensive 6-month program for peak fitness.</p>
+          <span class="badge">6-Month Plan</span>
+        </div>
+        <div class="lock-overlay">🔒 Buy 6-Month Plan to access this workout</div>
+      </div>
+    </section>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBRgl29Xd7WPs87VfuC8jVHD__RRCzmSCk",
+      authDomain: "gym-managment-system-71582.firebaseapp.com",
+      projectId: "gym-managment-system-71582",
+      storageBucket: "gym-managment-system-71582.appspot.com",
+      messagingSenderId: "590045518119",
+      appId: "1:590045518119:web:9712c56628899b9b4e7102",
+      measurementId: "G-CKDQZ6YHDQ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    onAuthStateChanged(auth, async user => {
+      if (!user) {
+        lockAllWorkouts(); // Guest users can't access any workouts
+        return;
+      }
+
+      try {
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+
+        const plans = docSnap.exists() ? (docSnap.data().membershipPlans || []) : [];
+
+        document.querySelectorAll(".workout-card").forEach(card => {
+          const requiredPlan = card.getAttribute("data-access");
+          if (!plans.includes(requiredPlan)) {
+            card.classList.add("locked");
+          } else {
+            card.classList.remove("locked");
+            const overlay = card.querySelector(".lock-overlay");
+            if (overlay) overlay.style.display = "none";
+          }
+        });
+      } catch (error) {
+        console.error("Failed to fetch membership data:", error);
+        lockAllWorkouts();
+      }
+    });
+
+    function lockAllWorkouts() {
+      document.querySelectorAll(".workout-card").forEach(card => {
+        card.classList.add("locked");
+        const overlay = card.querySelector(".lock-overlay");
+        if (overlay) overlay.style.display = "flex";
+      });
+    }
+  </script>
+
+</body>
+</html>

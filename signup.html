@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up - XYZ Fitness</title>
+  <link rel="stylesheet" href="login.css" />
+  
+</head>
+<body>
+  <div class="background"></div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="main">
+      <div class="signup-card">
+        <h2>Sign Up for XYZ Fitness</h2>
+        <input type="text" id="name" placeholder="Full Name" />
+        <input type="email" id="email" placeholder="Email" />
+        <input type="password" id="password" placeholder="Password" />
+        <button onclick="signup()">Sign Up</button>
+        <a href="login.html">Already have an account? Login</a>
+      </div>
+    </div>
+  </div>
+
+
+
+<script type="module">
+  // ✅ Modular Firebase Imports
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+
+  // ✅ Replace with your actual Firebase config
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBRgl29Xd7WPs87VfuC8jVHD__RRCzmSCk",
+  authDomain: "gym-managment-system-71582.firebaseapp.com",
+  projectId: "gym-managment-system-71582",
+  storageBucket: "gym-managment-system-71582.firebasestorage.app",
+  messagingSenderId: "590045518119",
+  appId: "1:590045518119:web:9712c56628899b9b4e7102",
+  measurementId: "G-CKDQZ6YHDQ"
+};
+
+  // ✅ Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // ✅ Signup Function (attached to global scope)
+  window.signup = function () {
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+        alert("Signup successful!");
+        window.location.href = "homepage.html";
+      })
+      .catch(error => {
+        alert("Signup failed: " + error.message);
+      });
+  };
+</script>
+
+
+
+</body>
+</html>

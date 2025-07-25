@@ -1,0 +1,156 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  position: relative;
+  margin: 0;
+  background: linear-gradient(90deg, rgba(52, 148, 186, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);
+  background-attachment: fixed;
+  background-size: cover;
+  overflow-y: auto;
+}
+/*
+ Blurred Fullscreen Background Image 
+.background {
+  position: fixed;
+  top: 0%;
+  left: 18%;
+  width: 1000px;
+  height: 800px;
+  background-image: url('Homedrop.png'); /* Replace with correct path if needed 
+  background-size:cover;
+  background-position: center;
+  filter: blur(10px);
+  z-index: -1;
+}
+
+
+/* Centered Glass-Like Container 
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 100vh;
+  padding: 10px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  text-align: center;
+  color: black;
+  z-index: 1;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  margin-top: 10px;
+  
+}
+*/
+.main-content {
+  position: relative;
+  z-index: 1;
+  padding: 50px;
+  color: white;              /* so text stands out */
+  text-align: center;
+}
+
+h1{
+    display: flex;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+}
+
+
+p{
+    display: flex;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+
+h2{
+    display: flex;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+}
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    padding: 50px;
+    text-align: center;
+}
+
+span{
+    display: block;
+    font-weight: bold;
+    color: white;
+}
+
+#aloo {
+    display: inline-block; /* ensure it behaves like a box */
+    border: 2px solid black; /* 👈 Invisible border to reserve space */
+    padding: 2px;
+    border-radius: 20px;
+    transition: all 0.3s ease; /* smooth effect */
+}
+
+#aloo:hover {
+    border: 2px solid transparent; /* visible border on hover */
+    box-shadow: 0 4px 40px rgba(57, 158, 253, 0.788);
+    transform: scale(1.05);
+    background-color: transparent;
+}
+
+
+.shark img{
+    width:250px;
+    height: 390px;           /* Keep the aspect ratio */
+    border-radius: 15px;    /* Rounded corners */
+    display: block;         /* Makes image take its own line */
+    margin: 0 auto 10px;    /* Center the image and add bottom space */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+    object-fit: cover; 
+    object-position: center;
+}
+
+#kanda {
+    width: 200px;         /* Adjust size */
+    height: auto;         /* Maintain aspect ratio */
+    border-radius: 10px;  /* Optional: rounded corners */
+    border: 2px solid #333; /* Optional: border */
+    margin: 10px 0;       /* Optional: spacing around the image */
+    display: block;       /* Optional: makes it take up full line */
+}
+
+.Abt{
+    display: flex;              /* Enables side-by-side layout */
+    align-items: flex-start;    /* Aligns items at the top */
+    gap: 20px;                  /* Space between image and text */
+}
+
+.text-block {
+    flex: 1;                    /* Takes up remaining space */
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+}
+.back-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #f04e4e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.back-button:hover {
+  background-color: #d93c3c;
+}

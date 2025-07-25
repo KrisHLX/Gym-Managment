@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memberships</title>
+  <link rel="stylesheet" href="workout.css" />
+</head>
+<body>
+  <!-- Background Image with Blur -->
+  <div class="background"></div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Navigation Bar -->
+    <nav class="gym-navbar">
+      <div class="logo-wrapper">
+        <img src="Gymlogo.png" alt="Gym Logo" class="nav-logo" />
+      </div>
+      <ul class="nav-center">
+        <li><a href="homepage.html">Home</a></li>
+        <li><a href="trainers.html">Trainers</a></li>
+        <li><a href="membership.html">Membership</a></li>
+        <li id="workouts-link" style="display: none;"><a href="workouts.html">Workouts</a></li>
+        <li id="auth-links"><a href="login.html">Login</a> / <a href="signup.html">Signup</a></li>
+      </ul>
+    </nav>
+
+    <div class="membership">
+      <section class="membership-table-section">
+        <h2>Choose Your Membership Plan</h2>
+        <div class="membership-table">
+          <div class="table-header">
+            <div class="empty-cell"></div>
+            <div class="plan">1 Month</div>
+            <div class="plan">3 Months</div>
+            <div class="plan">6 Months</div>
+          </div>
+
+          <div class="table-row">
+            <div class="label">Price</div>
+            <div class="value">₹2000</div>
+            <div class="value">₹4999</div>
+            <div class="value">₹5999</div>
+          </div>
+
+          <div class="table-row">
+            <div class="label">Access to Workouts</div>
+            <div class="value">✔</div>
+            <div class="value">✔</div>
+            <div class="value">✔</div>
+          </div>
+
+          <div class="table-row">
+            <div class="label">Personal Trainer</div>
+            <div class="value">✖</div>
+            <div class="value">✔</div>
+            <div class="value">✔</div>
+          </div>
+
+          <div class="table-row">
+            <div class="label">Nutrition Plan</div>
+            <div class="value">✖</div>
+            <div class="value">✖</div>
+            <div class="value">✔</div>
+          </div>
+
+          <div class="table-row">
+            <div class="label"></div>
+            <div class="value"><button class="buy-btn">Buy Now</button></div>
+            <div class="value"><button class="buy-btn">Buy Now</button></div>
+            <div class="value"><button class="buy-btn">Buy Now</button></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+      <div class="modal-content payment-popup">
+        <span class="close" onclick="closePaymentModal()">&times;</span>
+        <h2>Complete Your Payment</h2>
+        <p id="selectedPlan"></p>
+
+        <!-- Payment Options -->
+        <div class="payment-options">
+          <form id="paymentForm">
+            <input type="text" placeholder="Cardholder Name" required />
+            <input type="text" placeholder="Card Number" maxlength="16" required />
+            <input type="month" required />
+            <input type="text" placeholder="CVV" maxlength="4" required />
+            <button type="submit">Pay with Card</button>
+          </form>
+
+          <div class="or-separator">OR</div>
+
+          <button id="paytmButton" class="paytm-btn">Pay with Paytm</button>
+        </div>
+
+        <div id="paymentStatus"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import {
+      getFirestore,
+      doc,
+      getDoc,
+      setDoc,
+      updateDoc,
+      arrayUnion
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBRgl29Xd7WPs87VfuC8jVHD__RRCzmSCk",
+      authDomain: "gym-managment-system-71582.firebaseapp.com",
+      projectId: "gym-managment-system-71582",
+      storageBucket: "gym-managment-system-71582.appspot.com",
+      messagingSenderId: "590045518119",
+      appId: "1:590045518119:web:9712c56628899b9b4e7102",
+      measurementId: "G-CKDQZ6YHDQ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const planNames = ["1-month", "3-month", "6-month"];
+    const planPrices = ["₹2000", "₹4999", "₹5999"];
+
+    const workoutsLink = document.getElementById("workouts-link");
+    const authLinks = document.getElementById("auth-links");
+    const buyButtons = document.querySelectorAll(".buy-btn");
+    const paytmButton = document.getElementById("paytmButton");
+    const paymentForm = document.getElementById("paymentForm");
+    const paymentModal = document.getElementById("paymentModal");
+    const selectedPlanText = document.getElementById("selectedPlan");
+    const paymentStatus = document.getElementById("paymentStatus");
+
+    let currentUser = null;
+
+    // Setup button listeners
+    buyButtons.forEach((btn, index) => {
+      btn.addEventListener("click", () => {
+        if (!currentUser) {
+          alert("Please login before purchasing.");
+          return;
+        }
+        openPaymentModal(index);
+      });
+    });
+
+    // Auth state observer
+    onAuthStateChanged(auth, async (user) => {
+      currentUser = user;
+      if (user) {
+        workoutsLink.style.display = "inline-block";
+        authLinks.style.display = "none"; // Hide login/signup if logged in
+      } else {
+        workoutsLink.style.display = "none";
+        authLinks.innerHTML = `<a href="login.html">Login</a> / <a href="signup.html">Signup</a>`;
+        authLinks.style.display = "inline-block";
+      }
+    });
+
+    // Open Payment Modal
+    async function openPaymentModal(index) {
+      const selectedPlan = planNames[index];
+      const price = planPrices[index];
+
+      const userRef = doc(db, "users", currentUser.uid);
+      const userSnap = await getDoc(userRef);
+
+      if (!userSnap.exists()) {
+        await setDoc(userRef, { membershipPlans: [selectedPlan] });
+      } else {
+        const currentPlans = userSnap.data().membershipPlans || [];
+        if (!currentPlans.includes(selectedPlan)) {
+          await updateDoc(userRef, {
+            membershipPlans: arrayUnion(selectedPlan)
+          });
+        }
+      }
+
+      selectedPlanText.textContent = `Selected Plan: ${selectedPlan} - ${price}`;
+      paymentModal.style.display = "flex";
+      paymentStatus.innerText = "";
+      paymentForm.style.display = "block";
+    }
+
+    // Card Payment
+    paymentForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      paymentStatus.innerText = "Processing payment...";
+      paymentStatus.style.color = "#000";
+
+      setTimeout(() => {
+        paymentStatus.innerText = "✅ Payment successful!";
+        paymentStatus.style.color = "green";
+        paymentForm.reset();
+      }, 1500);
+    });
+
+    // Paytm Simulation
+    paytmButton.addEventListener("click", () => {
+      paymentForm.style.display = "none";
+      paymentStatus.innerText = "Processing via Paytm...";
+      paymentStatus.style.color = "#000";
+
+      setTimeout(() => {
+        const success = Math.random() > 0.2;
+        if (success) {
+          paymentStatus.innerText = "✅ Paytm payment successful!";
+          paymentStatus.style.color = "green";
+        } else {
+          paymentStatus.innerText = "❌ Paytm payment failed. Try again.";
+          paymentStatus.style.color = "red";
+          paymentForm.style.display = "block";
+        }
+      }, 2000);
+    });
+
+    // Close Modal
+    window.closePaymentModal = function () {
+      paymentModal.style.display = "none";
+      paymentStatus.innerText = "";
+      paymentForm.reset();
+      paymentForm.style.display = "block";
+    };
+  </script>
+</body>
+</html>

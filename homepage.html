@@ -1,0 +1,311 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gym Management System</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+
+<script>
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBRgl29Xd7WPs87VfuC8jVHD__RRCzmSCk",
+  authDomain: "gym-managment-system-71582.firebaseapp.com",
+  projectId: "gym-managment-system-71582",
+  storageBucket: "gym-managment-system-71582.firebasestorage.app",
+  messagingSenderId: "590045518119",
+  appId: "1:590045518119:web:9712c56628899b9b4e7102",
+  measurementId: "G-CKDQZ6YHDQ"
+};
+firebase.initializeApp(firebaseConfig);
+
+</script>
+
+
+</head>
+<body>
+  
+  <!-- Background Image with Blur -->
+  <div class="background"></div>
+
+  <!-- Main Content -->
+  <div class="container">
+
+    <!-- Navigation Bar -->
+    <nav class="gym-navbar">
+      <div class="logo-wrapper">
+    <img src="Gymlogo.png" alt="Gym Logo" class="nav-logo" />
+      </div>
+
+    <ul class="nav-center">
+  <li><a href="homepage.html">Home</a></li>
+  <li><a href="trainers.html">Trainers</a></li>
+  <li><a href="membership.html" id="membership-link">Membership</a></li>
+  <li class="protected" style="display: none;"><a href="workouts.html">Workouts</a></li>
+  <li id="auth-links">
+    <a href="login.html">Login</a> OR <a href="signup.html">Signup</a>
+  </li>
+</ul>
+    </nav>
+
+    <!-- Why Join -->
+    <div class="why">
+      <h2> Why Join XYZ Fitness ? </h2>
+      <p> Total Fitnes gym membership offers a comprehensive fitness journey to every individual. Leverage 24*7 access, supportive community, state-of-the-art equipment, certified trainers, and flexibility.
+           Take a step forward toward fitness, anytime. </p>
+      <button id="tour">
+        <img src="play-button.png" alt="Play" style="width:16px; vertical-align:middle; margin-right:5px;">
+        PlayGym Tour</button>
+    </div>
+
+    <!-- Image Scroll -->
+     <div class="image-scroller">
+        <div class="scroller-track">
+          <img src="gym1.jpeg" alt="Gym 1">
+          <img src="gym2.jpeg" alt="Gym 2">
+          <img src="gym3.jpeg" alt="Gym 3">
+          <img src="gym4.jpeg" alt="Gym 4">
+          <!-- Repeat images for seamless loop -->
+          <img src="gym1.jpeg" alt="Gym 1">
+          <img src="gym2.jpeg" alt="Gym 2">
+          <img src="gym3.jpeg" alt="Gym 3">
+          <img src="gym4.jpeg" alt="Gym 4">
+        </div>
+      </div>
+
+    <!-- Why Gym Membership -->
+    <div class="wtm">
+      <h2>Why Buy This Gym Membership</h2>
+      <div class="wtm-grid">
+        <div class="wtm-card">
+          <img src="support.png" alt="Support">
+          <h3>Support</h3>
+          <p>Our certified trainers guide you every step of the way, helping you achieve your fitness goals with personalized support and expert advice.</p>
+        </div>
+        <div class="wtm-card">
+          <img src="Tool.avif" alt="Tool Training">
+          <h3>Tools & Training</h3>
+          <p>State-of-the-art equipment for cardio, strength, and flexibility training, so your workout is always balanced and effective.</p>
+        </div>
+        <div class="wtm-card">
+          <img src="conv.jpg" alt="Convenience">
+          <h3>Convenience</h3>
+          <p>Enjoy 24/7 access to gym facilities across locations, offering flexibility to fit your workout into your schedule.</p>
+        </div>
+        <div class="wtm-card">
+          <img src="community.jpg" alt="Community">
+          <h3>Community</h3>
+          <p>Be part of a motivational fitness community that keeps you inspired and supported throughout your fitness journey.</p>
+        </div>
+      </div>
+    </div>
+    <section class="membership-offers">
+      <h2>Anytime Fitness Gym Membership Offers</h2>
+      <div class="membership-categories">
+        <div class="membership-column">
+          <h3>Equipment</h3>
+          <ul>
+            <li>Treadmills</li>
+            <li>Exercise Cycles</li>
+            <li>Stair Climbers</li>
+            <li>Rowing Machines</li>
+            <li>Free Weights</li>
+            <li>Strength Equipment</li>
+            <li>Cable Crossovers</li>
+            <li>Kettlebells</li>
+            <li>AMT Cross-trainers</li>
+          </ul>
+        </div>
+        <div class="membership-column">
+          <h3>Lifestyle</h3>
+          <ul>
+            <li>Personal Training</li>
+            <li>Team Workouts</li>
+            <li>Coaching</li>
+            <li>Adaptive Motion Trainers</li>
+            <li>Spinning/Cycling Classes</li>
+            <li>Zumba Classes</li>
+            <li>Cardio Classes</li>
+            <li>Body Conditioning</li>
+            <li>Yoga Classes</li>
+          </ul>
+        </div>
+        <div class="membership-column">
+          <h3>Services</h3>
+          <ul>
+            <li>24-Hour Access</li>
+            <li>24-Hour Security</li>
+            <li>Convenient Parking</li>
+            <li>Anytime Gym Access</li>
+            <li>Private Bathrooms</li>
+            <li>Private Showers</li>
+            <li>Wellness Programs</li>
+            <li>Cardio TVs</li>
+            <li>TVs and HDTVs</li>
+          </ul>
+        </div>
+      </div>
+      <button class="enquire-button" onclick="handleEnquire()">Enquire About Gym Membership Now</button>
+
+    </section>
+
+    <footer class="site-footer">
+      <div class="footer-top">
+        <div class="footer-section">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Wellness</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Gyms</h4>
+          <ul>
+            <li><a href="#">Find a Gym</a></li>
+            <li><a href="#">Own a Gym</a></li>
+            <li><a href="#">Franchise Login</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Members</h4>
+          <ul>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Events</a></li>
+            <li><a href="#">Membership Info</a></li>
+          </ul>
+        </div>
+        <div class="footer-section social-icons">
+          <h4>Follow Us</h4>
+          <div class="icons">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-instagram"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 Xyz Gym. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Modal for login/signup prompt -->
+    <div id="loginModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Please Login or Sign Up</h2>
+        <p>You must be logged in to access the membership section.</p>
+        <div class="modal-buttons">
+          <a href="login.html" class="btn">Login</a>
+          <a href="signup.html" class="btn">Sign Up</a>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+
+<script>
+  const auth = firebase.auth();
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const authLinks = document.getElementById("auth-links");
+    const protectedItems = document.querySelectorAll(".protected");
+
+   auth.onAuthStateChanged((user) => {
+  console.log("Auth state changed:", user);
+
+  if (user) {
+    protectedItems.forEach(el => el.style.display = "inline-block");
+
+    if (authLinks) {
+      // Show logout only
+      authLinks.innerHTML = `<a href="#" id="logout-link">Logout</a>`;
+
+      const logoutLink = document.getElementById("logout-link");
+      if (logoutLink) {
+        logoutLink.addEventListener("click", function (e) {
+          e.preventDefault();
+          auth.signOut()
+            .then(() => {
+              window.location.href = "homepage.html";
+            })
+            .catch((error) => {
+              console.error("Logout error:", error);
+            });
+        });
+      }
+    }
+
+  } else {
+    protectedItems.forEach(el => el.style.display = "none");
+
+    if (authLinks) {
+      // Show login/signup only when logged out
+      authLinks.innerHTML = `<a href="login.html">Login</a> OR <a href="signup.html">Signup</a>`;
+    }
+  }
+});
+
+    // Membership click protection
+    const membershipLink = document.getElementById("membership-link");
+    if (membershipLink) {
+      membershipLink.addEventListener("click", function (e) {
+        const user = auth.currentUser;
+        if (!user) {
+          e.preventDefault();
+          showModal();
+        }
+      });
+    }
+
+    // Enquire button click
+    window.handleEnquire = function () {
+      const user = auth.currentUser;
+      if (user) {
+        window.location.href = "membership.html";
+      } else {
+        showModal();
+      }
+    };
+
+    // Modal controls
+    window.showModal = function () {
+      const modal = document.getElementById("loginModal");
+      const container = document.querySelector(".container");
+      if (modal && container) {
+        modal.style.display = "flex";
+        container.classList.add("blur-background");
+        setTimeout(() => {
+          modal.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 100);
+      }
+    };
+
+    window.closeModal = function () {
+      const modal = document.getElementById("loginModal");
+      const container = document.querySelector(".container");
+      if (modal && container) {
+        modal.style.display = "none";
+        container.classList.remove("blur-background");
+      }
+    };
+  });
+</script>
+
+
+
+</body>
+</html>

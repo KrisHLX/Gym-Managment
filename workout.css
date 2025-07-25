@@ -1,0 +1,312 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  position: relative;
+  margin: 0;
+  background: linear-gradient(90deg,rgba(52, 148, 186, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);
+  background-attachment: fixed;
+  background-size: cover;
+  overflow-y: auto;
+}
+/*
+ Blurred Fullscreen Background Image 
+.background {
+  position: fixed;
+  top: 0%;
+  left: 18%;
+  width: 1000px;
+  height: 800px;
+  background-image: url('Homedrop.png'); /* Replace with correct path if needed 
+  background-size:cover;
+  background-position: center;
+  filter: blur(10px);
+  z-index: -1;
+}
+
+
+/* Centered Glass-Like Container 
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 100vh;
+  padding: 10px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  text-align: center;
+  color: black;
+  z-index: 1;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  margin-top: 10px;
+  
+}
+*/
+/* Navbar */
+.gym-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #2d243d; /* Deep purple */
+  padding: 12px 30px;
+  border-radius: 0px 60px 0px 60px;
+  margin:  0;
+}
+
+.nav-center {
+  display: flex;
+  gap: 25px;
+  list-style: none;
+  padding-left: 0;
+}
+
+.nav-center li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.nav-center li a:hover,
+.nav-center li a.active {
+  color: #e67e22;
+}
+
+.nav-right .cta-button {
+  background-color: #f45d48;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.nav-right .cta-button:hover {
+  background-color: #d84a37;
+}
+
+.logo-wrapper {
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.nav-logo {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  transform: scale(1.5);
+}
+
+/* Membership Table */
+.membership-table-section {
+  padding: 60px 20px;
+  text-align: center;
+  background: transparent;
+}
+
+.membership-table-section h2 {
+  font-size: 32px;
+  margin-bottom: 40px;
+}
+
+.membership-table {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 1fr);
+  gap: 1px;
+  background: transparent;
+  max-width: 1000px;
+  margin: auto;
+  border: 1px solid;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.table-header,
+.table-row {
+  display: contents;
+}
+
+.empty-cell {
+  background: white;
+}
+
+.plan,
+.label,
+.value {
+  padding: 20px;
+  background: white;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.plan {
+  background: #4a148c;
+  color: white;
+  font-size: 18px;
+}
+
+.label {
+  background: #e0e0e0;
+  font-weight: bold;
+  text-align: left;
+}
+
+.value {
+  text-align: center;
+}
+
+.buy-btn {
+  padding: 10px 20px;
+  background: #f45d48;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.buy-btn:hover {
+  background: #d84a37;
+}
+
+/* Modal Styling */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 12px;
+  position: relative;
+  width: 500px;
+  max-width: 90%;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+
+.modal-content .close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 26px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Payment Form */
+.payment-options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.payment-options input {
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.payment-options button {
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #f45d48;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.payment-options button:hover {
+  background-color: #d84a37;
+}
+
+.or-separator {
+  text-align: center;
+  margin: 10px 0;
+  font-weight: bold;
+  color: #999;
+}
+
+.paytm-btn {
+  background-color: #002970;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.paytm-btn:hover {
+  background-color: #001c48;
+}
+
+#paymentStatus {
+  margin-top: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+    .locked .lock-overlay {
+      display: block;
+    }
+
+    .lock-overlay {
+      display: none;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .workout-card {
+      position: relative;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+      padding: 1rem;
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .badge {
+      background-color: purple;
+      color: white;
+      padding: 0.2rem 0.5rem;
+      border-radius: 5px;
+    }
+
+    #auth-links {
+      position: absolute;
+      top: 1rem;
+      right: 2rem;
+    }
+  
